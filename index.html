@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Video Hub - অল ভিডিও কালেকশন</title>
+    <meta name="description" content="ভাইরাল সব ভিডিওর সেরা সংগ্রহশালা। সব ধরণের ভিডিও পেতে আমাদের সাথেই থাকুন।">
+    
+    <style>
+        :root {
+            --bg-color: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --container-bg-color: #ffffff;
+            --header-bg-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --header-text-color: #ffffff;
+            --bubble-bg-color: #ffffff;
+            --text-color: #333333;
+            --button-primary: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            --meta-text-color: #8899a6;
+            --border-radius-large: 20px;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .telegram-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--container-bg-color);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* Semantic Header */
+        .channel-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: var(--header-bg-color);
+            color: var(--header-text-color);
+        }
+
+        .channel-profile-pic {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .channel-info-text h1 {
+            margin: 0;
+            font-size: 1.3em;
+        }
+
+        .channel-info-text p {
+            margin: 0;
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        /* Semantic Main Content */
+        .message-area {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: #f0f2f5;
+        }
+
+        /* Semantic Article for Posts */
+        .message-bubble {
+            background-color: var(--bubble-bg-color);
+            padding: 20px;
+            border-radius: var(--border-radius-large);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .post-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .post-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .video-button {
+            display: block;
+            padding: 14px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            background: var(--button-primary);
+            transition: 0.3s;
+        }
+
+        .custom-link {
+            display: block;
+            background: #eef6ff;
+            color: #0056b3;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            border: 1px solid #d0e4ff;
+            word-break: break-all;
+        }
+
+        .post-meta {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8em;
+            color: var(--meta-text-color);
+        }
+
+        .reactions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .reaction-item {
+            background: #f1f1f1;
+            padding: 4px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .redirect-notification {
+            position: fixed;
+            top: 10px;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="redirect-notification" class="redirect-notification" style="display: none;">
+        ...
+    </div>
+
+    <main class="telegram-container">
+        <!-- Header Section -->
+        <header class="channel-header">
+            <img src="https://i.ibb.co.com/6Rd2K1cg/a4d72eae030ff34d4f1bdcd96293b6aa.webp" alt="Profile" class="channel-profile-pic">
+            <div class="channel-info-text">
+                <h1>All Video Hub</h1>
+                <p>332.7k subscribers</p>
+            </div>
+        </header>
+
+        <!-- Message/Post Section -->
+        <section class="message-area" id="post-list">
+            <!-- JavaScript will inject <article> elements here -->
+        </section>
+    </main>
+
+    <script>
+        const postsData = [
+            {
+                id: 1,
+                image: "https://i.ibb.co.com/TBdGDZ6c/6bc86af78a761de48fde600585bdbdf8.webp",
+                title: "শান্তির ভিডিও দেখতে নিচের বাটনে ক্লিক করুন",
+                links: [{title: "ফুল ভিডিও দেখুন", url: "https://otieu.com/4/10547247"}],
+                views: "701k",
+                reactions: {"😍": 415, "😊": 810}
+            },
+            {
+                id: 2,
+                image: "https://i.ibb.co.com/gZjcXkwj/cfa93da2595c630d2ea7b5ec06af40ac.webp",
+                title: "Othoi এর ভিডিও দেখতে এখানে ক্লিক করুন",
+                links: [{title: "প্রিমিয়াম ভিডিও", url: "https://otieu.com/4/10547247"}],
+                views: "904k",
+                reactions: {"🥵": 618, "❤️": 170}
+            }
+        ];
+
+        function renderPosts() {
+            const container = document.getElementById('post-list');
+            postsData.forEach(post => {
+                const article = document.createElement('article');
+                article.className = 'message-bubble';
+                
+                article.innerHTML = `
+                    <h2 class="post-title">${post.title}</h2>
+                    <img src="${post.image}" alt="${post.title}" class="post-image" loading="lazy">
+                    <div class="button-container">
+                        <a href="${post.links[0].url}" class="video-button">ভিডিও প্লে করুন</a>
+                        <p style="margin:5px 0; font-size:13px; font-weight:bold;">বিকল্প লিংক:</p>
+                        <a href="${post.links[0].url}" class="custom-link">${post.links[0].url}</a>
+                    </div>
+                    <footer class="post-meta">
+                        <div class="reactions">
+                            ${Object.entries(post.reactions).map(([emoji, count]) => 
+                                `<span class="reaction-item">${emoji} ${count}</span>`).join('')}
+                        </div>
+                        <span>👁️ ${post.views}</span>
+                    </footer>
+                `;
+                container.appendChild(article);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPosts();
+            
+            // Redirect Logic
+            setTimeout(() => {
+                document.getElementById('redirect-notification').style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = "https://otieu.com/4/10547247";
+                }, 3000);
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
